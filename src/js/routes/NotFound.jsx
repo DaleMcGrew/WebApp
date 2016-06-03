@@ -42,8 +42,11 @@ export default class NotFound extends Component {
     return <GuidePositionList we_vote_id {...this.props} />;
   } else {
     return <div className="bs-container-fluid bs-well gutter-top--small fluff-full1">
-            <h3>Page Not Found</h3>
-              <div className="small">No candidate or organization with that twitter handle exists.</div>
+            <h2>Create Your Own Voter Guide</h2>
+              <div className="small">Is this your Twitter handle? Coming soon, you will be able to sign in with Twitter
+              and create your own voter guide for free.</div>
+      <br />
+      <img src="https://github.com/wevote/WebApp/raw/develop/unclesamewevote.jpg" width="210px" height="450px" />
           </div>;
   }
 }

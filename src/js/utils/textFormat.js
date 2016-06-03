@@ -46,5 +46,11 @@ export function removeTwitterNameFromDescription (displayName, twitterDescriptio
     } else {
       twitterDescriptionMinusName = "";
     }
+    if (twitterDescriptionMinusName.startsWith(", ")) {
+        twitterDescriptionMinusName = twitterDescriptionMinusName.substr(2);
+    }
+    if (twitterDescriptionMinusName.startsWith(": ")) {
+        twitterDescriptionMinusName = twitterDescriptionMinusName.substr(2);
+    }
     return twitterDescriptionMinusName;
 }
