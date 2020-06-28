@@ -13,81 +13,108 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const port = process.env.PORT || 3000;
 
 // Set isProduction to false, to enable the interactive bundle analyser and the Unused component analyzer
-const isProduction = true;   // Developers can set this to be false, but in git it should always be true
+const isProduction = false;   // Developers can set this to be false, but in git it should always be true
 
 module.exports = {
   mode: 'development',
+  // entry: './src/js/simpleIndex.js',
   entry: {
-    bundle: ['./src/js/index.js', './src/sass/main.scss'],
+    // bundle: ['./src/js/index.js', './src/sass/main.scss'],
+    vendor2: ['react-dom'],
+    app: ['./src/js/simpleIndex.js', './src/sass/main.scss'],
   },
   output: {
     chunkFilename: '[name].bundle.js',
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'build'),
+    publicPath: '/',
   },
   optimization: {
-    runtimeChunk: false,
+    // runtimeChunk: false,
     splitChunks: {
-      chunks: 'all',
-      maxInitialRequests: Infinity,
-      minSize: 0,
+      // chunks: 'all',
+      // maxInitialRequests: Infinity,
+      // minSize: 0,
       cacheGroups: {
-        reactCore: {
-          name: 'reactCore',
-          test: /[\\/]node_modules[\\/](jquery|prop-types|react|react-dom|react-helmet|react-router|react-router-scroll|react-text-truncate)[\\/]/,
+        // reactCore: {
+        //   name: 'reactCore',
+        //   test: /[\\/]node_modules[\\/](jquery|prop-types|react|react-dom|react-helmet|react-router|react-router-scroll|react-text-truncate)[\\/]/,
+        //   chunks: 'all',
+        //   enforce: true,
+        // },
+        styles: {
+          name: 'styles',
+          test: /\.css$/,
           chunks: 'all',
-          enforce: true,
+          enforce: true
         },
+        vendor2: {
+          chunks: 'initial',
+          test: 'vendor2',
+          name: 'vendor2',
+          enforce: true
+        },
+        // vendor3: {
+        //   chunks: 'all',
+        //   test: 'vendor2',
+        //   name: 'vendor3',
+        //   enforce: true
+        // },
         // minimalNodeModules: {
         //   name: 'minimalNodeModules',
         //   test: /[\\/]node_modules[\\/](@babel|clsx|create-react-class|css-vendor|dom-helpers|@emotion|exenv|fbjs|history|hoist-non-react-statics|hyphenate-style-name|invariant|is-in-browser|is-what|jss|jss-plugin-camel-case|jss-plugin-default-unit|jss-plugin-global|jss-plugin-nested|jss-plugin-props-sort|jss-plugin-vendor-prefixer|jss-plugin-rule-value-function|memoize-one|merge-anything|object-assign|process|query-string|react-is|react-fast-compare|react-js|react-side-effect|scroll-behavior|shallowequal|sockjs-client|strict-uri-encode|stylis|stylis-rule-sheet|tiny-warning)[\\/]/,
         //   chunks: 'all',
         //   enforce: true,
         // },
-        materialStyle: {
-          name: 'materialStyle',
-          test: /[\\/]node_modules[\\/](@material-ui|styled-components)[\\/]/,
-          chunks: 'all',
-          enforce: true,
-        },
-        readyNoApi: {
-          name: 'readyNoApi',
-          test: function (module) {
-            if (module.resource) {
-              return module.resource.includes('/js/config.js') ||
-                module.resource.includes('/js/index.js') ||
-                module.resource.includes('/js/mui-theme.js') ||
-                module.resource.includes('/js/Root.jsx') ||
-                module.resource.includes('/js/startReactApp.js') ||
-                module.resource.includes('/js/styled-theme.js') ||
-                module.resource.includes('/js/components/ReadyNoApi/') ||
-                module.resource.includes('/js/components/Widgets/ReadMore.jsx') ||
-                module.resource.includes('/js/routes/ReadyNoApi.jsx') ||
-                module.resource.includes('/js/utils/') ||
-                module.resource.match(/[\\/]node_modules[\\/](@babel|clsx|create-react-class|css-vendor|dom-helpers|@emotion|exenv|fbjs|history|hoist-non-react-statics|hyphenate-style-name|invariant|is-in-browser|is-what|jss|jss-plugin-camel-case|jss-plugin-default-unit|jss-plugin-global|jss-plugin-nested|jss-plugin-props-sort|jss-plugin-vendor-prefixer|jss-plugin-rule-value-function|memoize-one|merge-anything|object-assign|process|query-string|react-is|react-fast-compare|react-js|react-side-effect|scroll-behavior|shallowequal|sockjs-client|strict-uri-encode|stylis|stylis-rule-sheet|tiny-warning)[\\/]/);
-            }
-          },
-          chunks: 'all',
-          enforce: true,
-        },
-        defaultWeVote: {
-          name: 'defaultWeVote',
-          test: function (module) {
-            if (module.resource) {
-              return module.resource.includes('/js/');
-            }
-          },
-          chunks: 'all',
-          enforce: true,
-          priority: -10,
-        },
-        defaultVendors: {
-          name: 'defaultVendors',
-          test: /[\\/]node_modules[\\/]/,
-          chunks: 'all',
-          enforce: true,
-          priority: -10,
-        },
+        // materialStyle: {
+        //   name: 'materialStyle',
+        //   test: /[\\/]node_modules[\\/](@material-ui|styled-components)[\\/]/,
+        //   chunks: 'all',
+        //   enforce: true,
+        // },
+        // readyNoApi: {
+        //   name: 'readyNoApi',
+        //   test: function (module) {
+        //     if (module.resource) {
+        //       return module.resource.includes('/js/config.js') ||
+        //         module.resource.includes('/js/index.js') ||
+        //         module.resource.includes('/js/simpleIndex.js') ||
+        //         module.resource.includes('/js/mui-theme.js') ||
+        //         module.resource.includes('/js/Root.jsx') ||
+        //         module.resource.includes('/js/startReactApp.js') ||
+        //         module.resource.includes('/js/styled-theme.js') ||
+        //         module.resource.includes('/js/components/ReadyNoApi/') ||
+        //         module.resource.includes('/js/components/Widgets/ReadMore.jsx') ||
+        //         module.resource.includes('/js/routes/ReadyNoApi.jsx') ||
+        //         module.resource.includes('/js/routes/App.js') ||
+        //         module.resource.includes('/js/routes/DynamicPage.js') ||
+        //         module.resource.includes('/js/routes/Home.js') ||
+        //         module.resource.includes('/js/routes/NoMatch.js') ||
+        //         module.resource.includes('/js/utils/') ||
+        //         module.resource.match(/[\\/]node_modules[\\/](@babel|clsx|create-react-class|css-vendor|dom-helpers|@emotion|exenv|fbjs|history|hoist-non-react-statics|hyphenate-style-name|invariant|is-in-browser|is-what|jss|jss-plugin-camel-case|jss-plugin-default-unit|jss-plugin-global|jss-plugin-nested|jss-plugin-props-sort|jss-plugin-vendor-prefixer|jss-plugin-rule-value-function|memoize-one|merge-anything|object-assign|process|query-string|react-is|react-fast-compare|react-js|react-side-effect|scroll-behavior|shallowequal|sockjs-client|strict-uri-encode|stylis|stylis-rule-sheet|tiny-warning)[\\/]/);
+        //     }
+        //   },
+        //   chunks: 'all',
+        //   enforce: true,
+        // },
+        // defaultWeVote: {
+        //   name: 'defaultWeVote',
+        //   test: function (module) {
+        //     if (module.resource) {
+        //       return module.resource.includes('/js/');
+        //     }
+        //   },
+        //   chunks: 'all',
+        //   enforce: true,
+        //   priority: -10,
+        // },
+        // defaultVendors: {
+        //   name: 'defaultVendors',
+        //   test: /[\\/]node_modules[\\/]/,
+        //   chunks: 'all',
+        //   enforce: true,
+        //   priority: -10,
+        // },
       },
     },
     minimizer: [
@@ -103,23 +130,24 @@ module.exports = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(),
-    new webpack.HashedModuleIdsPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
+    // new CleanWebpackPlugin(),
+    // new webpack.HashedModuleIdsPlugin(),
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: './src/simpleIndex.html',
       filename: 'index.html',
-      chunksSortMode: 'auto',
+      // chunksSortMode: 'auto',
     }),
-    new ScriptExtHtmlWebpackPlugin({
-      sync: ['jQuery', 'materialStyle', 'reactCore', 'readyNoApi'],
-      // This just generates a link, but doesn't remove the script from being included and holding up onload
-      // Possible solution: use this, but modify the html to remove the "<script" tag manually
-      // prefetch: {
-      //   test: ['defaultVendors', 'defaultWeVote'],
-      //   chunks: 'all',
-      // },
-      defaultAttribute: 'async',
-    }),
+    // new ScriptExtHtmlWebpackPlugin({
+    //   sync: ['jQuery', 'materialStyle', 'reactCore', 'readyNoApi'],
+    //   // This just generates a link, but doesn't remove the script from being included and holding up onload
+    //   // Possible solution: use this, but modify the html to remove the "<script" tag manually
+    //   // prefetch: {
+    //   //   test: ['defaultVendors', 'defaultWeVote'],
+    //   //   chunks: 'all',
+    //   // },
+    //   defaultAttribute: 'async',
+    // }),
     new CopyPlugin([
       { from: 'src/extension.html', to: '.' },
       { from: 'src/robots.txt', to: '.' },
@@ -131,11 +159,11 @@ module.exports = {
       { from: 'src/javascript/', to: 'javascript/' },
     ]),
     // Strip from bundle.js, all moment.js locales except “en”
-    new MomentLocalesPlugin(),
-    new InjectManifest({
-      swSrc: './src/serviceWorker.js',
-      swDest: 'sw.js',
-    }),
+    // new MomentLocalesPlugin(),
+    // new InjectManifest({
+    //   swSrc: './src/serviceWorker.js',
+    //   swDest: 'sw.js',
+    // }),
     ...(isProduction ? [] : [
       new UnusedWebpackPlugin({  // Set isProduction to false to list (likely) unused files
       // Source directories and files, to exclude from unused file checking
@@ -163,7 +191,17 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ['babel-loader'],
+        loader: 'babel-loader',
+        options: {
+          presets: [
+            '@babel/preset-env',
+            {
+              plugins: [
+                '@babel/plugin-proposal-class-properties'
+              ]
+            }
+          ]
+        },
       },
       {
         test: /\.scss$/,
@@ -200,6 +238,9 @@ module.exports = {
     ],
   },
   resolve: {
+    // alias: {
+    //   "react-dom": "@hot-loader/react-dom",
+    // },
     modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     extensions: ['.js', '.jsx'],
   },
@@ -207,6 +248,7 @@ module.exports = {
     host: 'localhost',
     port,
     historyApiFallback: true,
+    hot: true,
     open: true,
     writeToDisk: true,
   },

@@ -1,8 +1,10 @@
+import { hot } from 'react-hot-loader';
 import React, { Suspense } from 'react';
-import { render } from 'react-dom';
+// import { render } from 'react-dom';
 import {
-  browserHistory, hashHistory, Router, applyRouterMiddleware,
-} from 'react-router';
+  browserHistory, hashHistory, applyRouterMiddleware,
+} from 'react-router'; // , Router
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { useScroll } from 'react-router-scroll';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { ThemeProvider } from 'styled-components';
@@ -11,6 +13,7 @@ import routes from './Root';
 import muiTheme from './mui-theme';
 import styledTheme from './styled-theme';
 import { renderLog } from './utils/logging';
+import ReadyNoApi from './routes/ReadyNoApi';
 
 
 // May 2020, this was moved into a separate file, so that the imports can be delayed
@@ -21,23 +24,49 @@ export default function startReactApp () {
   console.log('startReactApp first line in startReactApp');
   console.log('startReactApp isCordova(): ', isCordova());
 
+  // const element = (
+  //   // eslint-disable-next-line react/jsx-filename-extension
+  //   <Suspense fallback={<div>&nbsp;</div>}>
+  //     <MuiThemeProvider theme={muiTheme}>
+  //       <ThemeProvider theme={styledTheme}>
+  //         <Router
+  //           history={isCordova() ? hashHistory : browserHistory}
+  //           render={applyRouterMiddleware(useScroll(() => true))}
+  //         >
+  //           {routes()}
+  //         </Router>
+  //       </ThemeProvider>
+  //     </MuiThemeProvider>
+  //   </Suspense>
+  // );
   const element = (
     // eslint-disable-next-line react/jsx-filename-extension
-    <Suspense fallback={<div>&nbsp;</div>}>
-      <MuiThemeProvider theme={muiTheme}>
-        <ThemeProvider theme={styledTheme}>
-          <Router
-            history={isCordova() ? hashHistory : browserHistory}
-            render={applyRouterMiddleware(useScroll(() => true))}
-          >
-            {routes()}
-          </Router>
-        </ThemeProvider>
-      </MuiThemeProvider>
-    </Suspense>
+    // <Suspense fallback={<div>&nbsp;</div>}>
+    //   <MuiThemeProvider theme={muiTheme}>
+    //     <ThemeProvider theme={styledTheme}>
+    //       <Router
+    //         history={isCordova() ? hashHistory : browserHistory}
+    //         render={applyRouterMiddleware(useScroll(() => true))}
+    //       >
+    //         {routes()}
+    //       </Router>
+    //     </ThemeProvider>
+    //   </MuiThemeProvider>
+    // </Suspense>
+    <Router>
+      <div>
+        <Switch>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Route path="/getready" component={ReadyNoApi} />
+          </Suspense>
+        </Switch>
+      </div>
+    </Router>
   );
 
   // console.log('startReactApp before render');
-  render(element, document.getElementById('app'));
+  const render = (Component) =>
+    render(<Component />, document.getElementById('app'));
+  render(hot(element));
 }
 
