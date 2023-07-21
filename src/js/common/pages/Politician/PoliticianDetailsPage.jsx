@@ -498,7 +498,7 @@ class PoliticianDetailsPage extends Component {
           <ViewOnWikipedia externalLinkUrl={wikipediaUrl} />
         )}
         {politicianName && (
-          <SearchOnGoogle googleQuery={`${politicianName} ${stateText} ${officeHeldNameForSearch}`} />
+          <SearchOnGoogle googleQuery={`${politicianName} ${stateText} ${officeHeldNameForSearch} Candidate`} />
         )}
       </PoliticianLinksWrapper>
     );

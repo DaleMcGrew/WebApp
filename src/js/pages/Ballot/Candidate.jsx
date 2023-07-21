@@ -380,7 +380,7 @@ class Candidate extends Component {
                 <ViewOnBallotpedia externalLinkUrl={candidate.ballotpedia_candidate_url} />
               )}
               {candidate.contest_office_name && (
-                <SearchOnGoogle googleQuery={`${candidateName} ${candidate.contest_office_name}`} />
+                <SearchOnGoogle googleQuery={`${candidateName} ${candidate.contest_office_name} Candidate`} />
               )}
             </ColumnOneThird>
           </TwoColumns>
