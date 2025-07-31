@@ -12,6 +12,7 @@ import { isWebApp } from '../../common/utils/isCordovaOrWebApp';
 import { renderLog } from '../../common/utils/logging';
 import stringContains from '../../common/utils/stringContains';
 import AppObservableStore, { messageService } from '../../common/stores/AppObservableStore';
+import BallotStore from '../../stores/BallotStore';
 import VoterStore from '../../stores/VoterStore';
 import lookupPageNameAndPageTypeDict, { getPageDetails } from '../../utils/lookupPageNameAndPageTypeDict';
 
@@ -153,6 +154,7 @@ class ShareButtonDesktopTablet extends Component {
         actionType: 'openModal',
         buttonId,
       },
+      electionDetails: BallotStore.getAnalyticsElectionDetails(),
       shareDetails: {
         kindOfShare,
         withOpinions: withOpinionsModified,

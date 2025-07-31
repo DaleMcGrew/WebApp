@@ -151,6 +151,22 @@ class BallotStore extends ReduceStore {
     return this.getState().ballots[civicId].polling_location_we_vote_id_source;
   }
 
+  getAnalyticsElectionDetails () {
+    const electionGeo = {
+      region: '',
+      city: '',
+      zip: '',
+    };
+    return {
+      electionGeo,
+      electionYear: '',
+      electionDate: '',
+      politicalOffice: '',
+      electionType: '',
+      electionLevel: '',
+    };
+  }
+
   getBallotCaveat () {
     return this.getState().ballotCaveat || '';
   }
