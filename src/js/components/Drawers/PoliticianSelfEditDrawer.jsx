@@ -19,6 +19,7 @@ import SettingsLinks from '../PoliticianSelfEdit/SettingsLinks';
 import SettingsNameAndPhoto from '../PoliticianSelfEdit/SettingsNameAndPhoto';
 import SettingsOfficialStatement from '../PoliticianSelfEdit/SettingsOfficialStatement';
 import SettingsPoliticalParty from '../PoliticianSelfEdit/SettingsPoliticalParty';
+import SettingsTeamAccess from '../PoliticianSelfEdit/SettingsTeamAccess';
 import SettingsNotifications from '../Settings/SettingsNotifications';
 import { NavLinksContainer } from '../Style/drawerLayoutStyles';
 import DrawerTemplateHeaderProfile from './DrawerTemplateHeaderProfile';
@@ -115,6 +116,9 @@ function PoliticianSelfEditDrawer() {
         break;
       case 'party':
         component = <SettingsPoliticalParty externalUniqueId="politicianSelfEditDrawer" politicianWeVoteId={politicianWeVoteId} />;
+        break;
+      case 'teamAccess':
+        component = <SettingsTeamAccess externalUniqueId="politicianSelfEditDrawer" politicianWeVoteId={politicianWeVoteId} />;
         break;
       default:
         // console.log('In PoliticianSelfEditDrawer useEffect default case');

@@ -97,9 +97,10 @@ class BallotScrollingContainer extends Component {
 
   onIssueStoreChange = () => {
     const { oneCandidate } = this.props;
-    const hasIssues = BallotScrollingContainer.computeHasIssues(oneCandidate.we_vote_id);
-    if (hasIssues !== this.state.hasIssues) {
-      this.setState({ hasIssues });
+    const { hasIssues } = this.state;
+    const hasIssuesTemp = BallotScrollingContainer.computeHasIssues(oneCandidate.we_vote_id);
+    if (hasIssuesTemp !== hasIssues) {
+      this.setState({ hasIssues: hasIssuesTemp });
     }
   };
 

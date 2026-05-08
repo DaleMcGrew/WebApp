@@ -274,9 +274,11 @@ function ElectionFinderForElection () {
         {totalResults !== null && (
           <SearchResultCount>
             {`${totalResults} results for \u201C${electionSearchText}\u201D`}
-            <DarkTooltip title="Download search results">
-              <IconButton size="small" style={{ marginLeft: 8 }}><FileDownloadOutlined fontSize="small" /></IconButton>
-            </DarkTooltip>
+            {nextReleaseFeaturesEnabled && (
+              <DarkTooltip title="Download search results">
+                <IconButton size="small" style={{ marginLeft: 8 }}><FileDownloadOutlined fontSize="small" /></IconButton>
+              </DarkTooltip>
+            )}
           </SearchResultCount>
         )}
 

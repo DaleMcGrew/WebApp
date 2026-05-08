@@ -179,6 +179,17 @@ const HeaderContainer = styled('div')`
   margin-bottom: 4px;
 `;
 
+const IconWrapper = styled('div')`
+  display: flex;
+  align-self: center;
+  margin-right: 6px;
+
+  svg {
+    margin-top: 4px;
+    color: black !important;
+  }
+`;
+
 const Input = styled('input')`
   width: 100%;
   padding: 12px;
@@ -235,17 +246,6 @@ const SettingsPoliticalPartyWrapper = styled('div')`
   padding: 16px;
   max-width: 700px;
   color: ${DesignTokenColors.neutralUI900};
-`;
-
-const IconWrapper = styled('div')`
-  display: flex;
-  align-self: center;
-  margin-right: 6px;
-
-  svg {
-    margin-top: 4px;
-    color: black !important;
-  }
 `;
 
 export default SettingsPoliticalParty;
